@@ -182,6 +182,126 @@ data-twttr-rendered="true">
             through the process of registering a client using open
             registration, as well as an example of using trusted
             registration which leverages BB+ Registries.</p>
+            
+            <h2 id="client-types">Client Types</h2>
+            
+            <p>BlueButton+ allows for several different types of clients and use cases that are differentiated along two axes: whether or not a client can reasonably guard its <code>client_secret</code> at runtime, and whether or not it can guard its <code>registration_jwt</code> at runtime (if it has one). The OAuth 2 specification defines the former class distinction as "confidential" and "public" clients, but there is not existing terminology for the latter classification. This combination leads us to a matrix of six possible application styles:</p>
+            
+            <table class="table table-bordered table-hover">
+                        
+	      <tr>
+		<td></td>
+		<th><span class="badge">A</span> Can guard <code>client_secret</code></th>
+		<th><span class="badge">B</span> Can <strong>NOT</strong> guard <code>client_secret</code></th>
+	      </tr>
+	      
+	      <tr>
+		<th><span class="badge">1</span> Can guard <code>registration_jwt</code></th>
+		<td><span class="badge">A1</span>: Trusted Confidential Application</td>
+		<td><span class="badge">B1</span>: Trusted Public Application</td>
+	      </tr>
+	      <tr>
+		<th><span class="badge">2</span> Can <strong>NOT</strong> guard <code>registration_jwt</code></th>
+		<td><span class="badge">A2</span>: Semi-Trusted Confidential Application</td>
+		<td><span class="badge">B2</span>: Semi-Trusted Public Application</td>
+	      </tr>
+	      <tr>
+		<th><span class="badge">3</span> No <code>registration_jwt</code></th>
+		<td><span class="badge">A3</span>: Experimental Confidential Application</td>
+		<td><span class="badge">B3</span>: Experimental Public Application</td>
+	      </tr>
+	      
+            </table>
+            
+            <p>When deciding whether and how to register with a Registry Service, a client application developer MUST determine which of the above categories are appropriate for their application. Application developers must take care to select the appropriate category for their application based on its runtime capabilites as well as policies around the data. A Registry should help enable these distinctions by explicitly asking application develoeprs about the capabilities of their applications in order to determine which policies to apply.</p>
+            
+            <h3><span class="badge">A1</span>: Trusted Confidential Application</h3>
+            
+            Examples:
+            <ul>
+            <li>Web application where all API interactions between client and provider happen in the back channel ("server-side, away from the end-user"). This is the recommended mode for web-server based applications.</li>
+            <li>Native applications that can be issued a per-instance <code>registration_jwt</code> (using mechanisms outside the scope of this specification)</li>
+            </ul>
+            
+            Policies:
+            <ul>
+	    <li>Uses trusted registration</li>
+            <li>This is the setup with the highest assurance. Therefore authorization server can present the user with its least-scary authorization screen.</li>
+            <li>If the <code>registration_jwt</code> or <code>client_secret</code> are exposed, it should be considered a major security breach and system-wide invalidation of the application's instances (and re-provisioning of its <code>registration_jwt</code>) are reasonable and expected countermeasures.</li>
+            </ul>
+            
+	    <h3><span class="badge">B1</span>: Trusted Public Application</h3>
+	    
+	    Examples:
+	    <ul>
+	    <li>Split server-side/in-browser application that handles dynamic registration in the back-end (server-side) but performs authorization in the browser (likely using implicit flow)</li>
+	    </ul>
+	    
+	    Policies:
+	    <ul>
+	    <li>Uses trusted registration</li>
+	    <li>An application MUST pre-register its <code>redirect_uri</code>s at the Registry Service and the authorization server MUST enforce them.</li>
+	    <li>On the authorization page, the authorization server should disclose the name and URI of the application for users to confirm that it matches what they think they're using</li>
+	    <li>If the <code>registration_jwt</code> is exposed, it should be considered a major security breach and system-wide invalidation of the application's instances (and re-provisioning of its <code>registration_jwt</code>) are reasonable and expected countermeasures.</li>
+	    </ul>
+	    
+	    <h3><span class="badge">A2</span>: Semi-Trusted Confidential Application</h3>
+	    Examples:
+	    <ul>
+	    <li>Self-sufficient native applications that register themselves separately per installation instance based on their pre-registered parameters.</li>
+	    </ul>
+	    
+	    Policies:
+	    <ul>
+	    <li>Uses trusted registration</li>
+	    <li>The <code>registration_jwt</code> is packaged in with the application and is therefore available to all end-users. This means that any holder of this JWT could try to register with this application's parameters and it must not be trusted for access without a user's explicit consent.</li>
+	    <li>Authorizations servers MUST present users with the name and URI of the application that is being authorized and appropriately caution users.</li>
+	    <li>An application MUST pre-register its <code>redirect_uri</code>s at the Registry Service and the authorization server MUST enforce them.</li>
+	    <li>An application SHOULD pre-register as many parameters as possible at the Registry Service and the authorization server MUST enforce them.</li>
+	    </ul>
+
+	    <h3><span class="badge">B2</span>: Semi-Trusted Public Application</h3>
+	    Examples:
+	    <ul>
+	    <li>In-browser javascript applications that handle dynamic registration and authorization (using the implicit flow) on their own</li>
+	    </ul>
+	    
+	    Policies:
+	    <ul>
+	    <li>Uses trusted registration</li>
+	    <li>The <code>registration_jwt</code> is packaged in with the application and is therefore available to all end-users. This means that any holder of this JWT could try to register with this application's parameters and it must not be trusted for access without a user's explicit consent.</li>
+	    <li>Authorizations servers MUST present users with the name and URI of the application that is being authorized and appropriately caution users.</li>
+	    <li>An application SHOULD pre-register as many parameters as possible at the Registry Service and the authorization server MUST enforce them.</li>
+	    <li>This is likely to be a rare case in BB+.</li>
+	    </ul>
+
+	    <h3><span class="badge">A3</span>: Experimental Confidential Application</h3>
+	    Examples:
+	    <ul>
+	    <li>Weekend project / prototype of a web or native client to be used by app developers, their friends, and family</li>
+	    </ul>
+	    
+	    Policies:
+	    <ul>
+	    <li>Uses open registration</li>
+	    <li>Authorization page MUST display a warning to users that the identity of the application is unverified and MUST state that users should proceed only if they trust the app's presented <code>redirect_uri</code></li>
+	    <li>An authorization server MAY display statistics such as how many other users have authorized this application in order to help the user make their decision.</li>
+	    </ul>
+	    
+	    <h3><span class="badge">B3</span>: Experimental Public Application</h3>
+	    Examples:
+	    <ul>
+	    <li>Weekend project / prototype of an in-browser or native client to be used by app developers, their friends, and family</li>
+	    </ul>
+	    
+	    Policies:
+	    <ul>
+	    <li>Uses open registration</li>
+	    <li>Authorization page MUST display a warning to users that the identity of the application is unverified and MUST state that users should proceed only if they trust the app's presented <code>redirect_uri</code></li>
+	    <li>An authorization server MAY display statistics such as how many other users have authorized this application in order to help the user make their decision.</li>
+	    </ul>
+
+            
 
             <h2 id="registration-open">Open
             Registration</h2>BlueButton+ providers offer an open
@@ -198,13 +318,13 @@ data-twttr-rendered="true">
               assurance, apps can perform a Trusted Registration
               (described below).
             </div>
-<div class=wsd wsd_style="napkin"><pre>
+<div class="wsd" wsd_style="napkin"><pre>
 Title: BlueButton+ Open Registration Process
 participant App
-participant Provider 
+participant Provider
 
 App-&gt;Provider: Registration Request (no JWT)
-Provider--&gt;App: client_id + secret + registration token
+Provider-&gt;App: client_id + secret + registration token
             </pre></div>
 
             <h3 id="registration-parameters">Registration
@@ -407,10 +527,11 @@ Host: bbplus-provider.org
 </pre>
 
             <p>The client will receive a unique
-            <code>client_id</code> for that service provider, and
-            will also receive a
+            <code>client_id</code> for that service provider, 
+            a <client_secret> that it can use to authorize at
+            the token endpoint, as well as a
             <code>registration_access_token</code> that it can use
-            to maintain its registration there, as described in
+            to maintain its registration at the registration endpoint, as described in
             OAuth Dynamic Client Registration.</p>
 
             <h2 id="registration-trusted">Trusted Registration</h2>
@@ -455,7 +576,7 @@ Host: bbplus-provider.org
               <p><strong>Client Instances per-Provider</strong> In
               the OAuth sense, the BP Grapher app has a separate
               "instance" for each (app, provider) pair it
-              participates in. For example, it may use a separate
+              participates in. For example, it will likely use a distinct
               <code>client_id</code> to communicate with each BB+
               provider. (Since <code>client_id</code> is assigned
               by each provider as part of the normal OAuth Dynamic
@@ -467,24 +588,22 @@ Host: bbplus-provider.org
 
               <p><strong>Client Instances per-Device</strong>
               Similarly, if the Blood Pressure Grapher is installed
-              on multiple iOS devices, it may be assigned a
+              on multiple iOS devices, it will be assigned a
               separate <code>client_id</code> for each
               (app-on-device, provider) pair it participates in.
               (Since <code>client_id</code> is assigned by each
               provider as part of the normal OAuth Dynamic
-              Registration process, apps <em>may be assigned</em>
+              Registration process, apps <em>MUST be assigned</em>
               distinct identifiers per-device by each provider.)
               Again, since these instances all represent "the same
               app," they belong to the same <strong>Client
               Class</strong>.</p>
 
               <p><strong>Instance- and Class-level
-              Controls</strong> In this way, BB+ Providers are free
-              to assign each instance of a Client Class a different
-              <code>client_id</code>, or to assign the same
-              <code>client_id</code> to all Client Instances of a
-              given class, in accordance with local policy. Apps
-              simply use the identifiers assigned. No matter how
+              Controls</strong> In this way, BB+ Providers MUST assign 
+              each instance of a Client Class a different
+              <code>client_id</code>, as stated in <a href="http://tools.ietf.org/html/draft-ietf-oauth-dyn-reg">OAuth 2 Dynamic Registration section 5.1</a>. Apps
+              MUST simply use the identifiers assigned. No matter which instance
               identifiers are assigned, BB+ Providers maintain the
               ability to make decisions at the Class level, so if
               the Blood Pressure Grapher loses trust, all of its
@@ -492,23 +611,31 @@ Host: bbplus-provider.org
             </div>
 
             <h3>Process overview:</h3>
-<div class=wsd wsd_style="napkin"><pre>
+<div class="wsd" wsd_style="napkin"><pre>
 Title: BlueButton+ Trusted Registration Process
-participant Provider 
-participant BB+ Registry
 participant App
+participant Provider 
+participant "BB+ Registry"
 
-App->BB+ Registry: Register for membership
+note over App,"BB+ Registry": Manual pre-registration
+App-->BB+ Registry: Register for membership
 BB+ Registry-->BB+ Registry: Verify app claims
+BB+ Registry-->BB+ Registry: Store app claims,\nmake available for discovery
 BB+ Registry-->App: Signed Registration JWT
-App->App: Time passes...
+note over App: Time passes... time to register
 App->BB+ Registry: Lookup provider
-BB+ Registry-->App: Provider URI
+BB+ Registry->App: Provider information
 App->Provider: Registration Request + JWT
+Provider->Provider: Validate issuer
+Provider->BB+ Registry: Get Registry discovery information
+BB+ Registry->Provider: Registry discovery information
+Provider->BB+ Registry: Lookup signing key
+BB+ Registry->Provider: JWK Set
+Provider->Provider: Validate signature
 Provider->BB+ Registry: Lookup app claims
-BB+ Registry-->Provider: App claims
+BB+ Registry->Provider: Pre-registered app claims
 Provider->Provider: Verify reg matches claims
-Provider-->App: client_id, secret, registration token
+Provider->App: client_id, secret, registration token
 </pre></div>
 
                 
@@ -552,7 +679,7 @@ Provider-->App: client_id, secret, registration token
               <li>Service provider validates the pre-registration
               token by checking the signature against the public
               key of the BB+ Registry indicated by the
-              <code>iss</code> field of the token (?and/or doing
+              <code>iss</code> field of the token (and/or doing
               token introspection from the <code>iss</code>).</li>
 
               <li>Service provider does application discovery based
@@ -562,8 +689,7 @@ Provider-->App: client_id, secret, registration token
 
               <li>Service provider compares any dynamically registered client
               metadata fields to any fixed value fields discovered in apps.json
-              <span class="label section label-info">TODO
-              string-comparison and validation rules</span></li>
+              </li>
 
               <li>Client Instance receives a <code>client_id</code>
               and <code>client_secret</code> as well as a
@@ -611,46 +737,116 @@ Provider-->App: client_id, secret, registration token
                   pre-registration information was last updated
                   (and this token was issued)</li>
 
-                  <li><code>exp</code>: optional timestamp of when
+                  <li><code>exp</code>: OPTIONAL timestamp of when
                   this pre-registration token is no longer
                   valid</li>
+                  
+                  <li><code>kid</code>: identifier for which key was 
+                  used to sign this token at the BB+ Registray</li>
 
                   <li><em>these claims are combined in a JWT
-                  asymmetrically signed by the BB+ Registry. The
-                  signature can be validated from the BB+ Registry's 
-                  published public key (published as a
-                  JWK). <span class="label section label-info">TODO
-                  add detail</span> .</em></li>
+                  asymmetrically signed by the BB+ Registry.</em></li>
                 </ul>
               </li>
             </ul>
 
-            <p>All service providers within a BB+ Registry must be
-            able to validate the signature and validity of any
-            registration tokens. It's recommended (required?) that
-            BB+ Registries publish a <a href=
-            "http://tools.ietf.org/html/draft-richer-oauth-introspection">
-            token introspection endpoint</a> to facilitate this.
-            <span class="label section label-info">TODO add
-            detail</span>.</p>
-
             <h3>Registration</h3>
 
-            <p>The registration token from the previous step is
+            <p>The registration JWT from the previous step is
             used by instances of the client during the initial call
-            to the registration endpoint for each service provider.
-            The service provider does <a href="#discovery-apps">BB+
-            App Discovery</a> based on the subject and issuer in
+            to the registration endpoint for each service provider.            
+            The service provider now needs to validate the registration
+            JWT, compare the client's pre-registered attributes to
+            the ones requested dynamically, and proceed with the registration.</p>
+            
+            <p>For example, a client may send:</p>
+            <pre class="prettyprint">
+POST /register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: ey...{JWT token omitted for brevity}...q48d
+Host: bbplus-provider.org
+
+{
+  "client_name": "Blood Pressure Grapher",
+  "contacts": [
+    "plot-master@bpgrapher.org"
+  ],
+  "tos_uri": "https://bpgrapher.org/tos",
+  "response_types": ["code"],
+  "grant_types": ["authorization_code"],
+  "token_endpoint_auth_method": "client_secret_basic",
+  "scope":  "single-patient http://siframework.org/ABBI/endpoint/summary"
+} 
+</pre>
+
+	    <h4>Validating the JWT</h4>            
+
+            <p>All service providers within a BB+ Registry must be
+            able to validate the signature and validity of any
+            registration tokens. First, the provdier must parse
+            the JWT and extract its <code>iss</code> (issuer) field
+            and determine if the issuer is trusted. This trust decision
+            will generally be a configuration option on the provider, which
+            will have a list of Registry Services that it trusts (identified
+            by their issuer URLs).</p>
+            
+            <p>If the <code>iss</code> is from a trusted source, the provider
+            then does <a href="#discovery-registry">discovery against the registry</a>
+            and finds the <code>jwks_uri</code> of the registry. The provider
+            downloads the key set from this URL (using an HTTPS GET request)
+            and extracts the key with the <code>kid</code> that is named in the
+            JWT. Using that key, the provider can then validate the signature
+            of the JWT as described in JSON Web Signatures.</p>
+            
+            <p class="alert-info">It's recommended <em>(required?)</em> that
+            BB+ Registries publish a <a href=
+            "http://tools.ietf.org/html/draft-richer-oauth-introspection">
+            token introspection endpoint</a> to facilitate token
+            validation by service providers. In addition to being able to check
+            the validity of the signature on a JWT, an introspection
+            endpoint can let a service provider determine if a JWT
+            is still valid (or has been revoked). 
+            </p>
+            
+            <h4>Validating the Registration</h4>
+
+            <p>The service provider does <a href="#discovery-apps">BB+
+            App Discovery</a> based on the <code>sub</code> (subject) and <code>iss</code> (issuer) in
             the registration token to determine which client
             metadata fields have been set ahead of time by the
-            pre-registration process. The Service provider will
+            pre-registration process. The provider
+            MUST abide by and enforce all pre-registered client values.
+            The Service provider will
             compare these pre-registered fields with any
             dynamically provided fields and determine the validity
-            of the registration.</p>
+            of the registration. It is RECOMMENDED that providers 
+            perform a direct string comparison between pre-registered 
+            values and the values provided by the client. If there is a
+            mismatch in any field, the provider MUST either return 
+            an <code>invalid_client_metadata</code> error (as described
+            in OAuth 2 Dynamic Registration) or replace the dynamically
+            requested value with the pre-registered value. 
+            </p>
 
+            <h4>Completing the Registration</h4>
+            
+            <p>Once the provider has determined that the client registration
+            request is valid, it will generate and issue a unique <code>client_id</code>
+            and <code>registration_access_token</code>, and if applicable, a unique <code>client_secret</code>.
+            The provider MUST NOT re-use the same <code>client_id</code>, <code>registration_access_token</code>,
+            or <code>client_secret</code> for different client instances, even
+            if these instances are part of the same client class.</p>
+            
+            <p>The provider MAY link together different client instances that
+            are part of the same Client Class to facilitate logging, auditing,
+            and emergency deprovisioning of compromised applications. The
+            method for the provider doign this is out of scope of this 
+            specification.</p>
+            
             <h3>Notes</h3>
 
-            <div class="well alert-info">
+            <div class="well alert alert-info">
               <strong>Notes:</strong>
 
               <ul>
@@ -671,17 +867,18 @@ Provider-->App: client_id, secret, registration token
                 the tokens used during registration. Service
                 providers are responsible for linking thse client
                 instances together if they so desire. A service
-                provider MAY re-use the same client_id for all
-                instance, or it may issue different client_ids for
-                each instance.</li>
+                provider MUST assign a unique <code>client_id</code>
+                for each registered instance and MUST NOT re-use 
+                the same <code>client_id</code> for 
+                other instances in the class.</li>
 
                 <li>Clients are responsible (in all registration
-                cases) for accepting and using the client_id issued
+                cases) for accepting and using the <code>client_id</code> issued
                 to them by each service provider when talking to
                 that service provider.</li>
 
                 <li>Even a web-server style client is going to need
-                to get different client_id's from every service
+                to get different <code>client_id</code>'s from every service
                 provider, which means that even a single
                 installation of a client could have multiple
                 "instances" as far as the network is
@@ -879,7 +1076,8 @@ Host: bpgrapher.org
                 <td><code>client_id</code></td>
 
                 <td>REQUIRED for public clients. May be omitted by
-                confidential clients.</td>
+                confidential clients where the client_id is communicated
+                via the client's authentication to the token endpoint.</td>
               </tr>
             </table>
 
@@ -1579,7 +1777,7 @@ Host: bbplus-provider.org
 
               <tr>
                 <td><code>jwks_uri</code></td>
-                <td>URL of the JSON Web Key (JWK) set for this BB+ Registry</td>
+                <td>URL of the JSON Web Key (JWK) set for this BB+ Registry. This URL MUST be protected by HTTPS or equivalent.</td>
               </tr>
 
               <tr>
@@ -1628,6 +1826,8 @@ Link: &lt;http://jmandel.github.com/blue-button-plus-pull/context-json-ld.js&gt;
 
             <h2 id="discovery-providers">Registered Providers</h2>
 
+            <p>A BB+ <strong>Provider</strong> is defined as the unique combination of a data service provider (a service that serves the BB+ data API) and an authorization provider (an OAuth2 authorization server and related components). Therefore, if a given data provider allows for two different authorization services, there will be two different BB+ Providers listed at the Registry Server. Likewise, if an authorization server is used for two different data providers, it will be listed separately in two different BB+ Providers at the Registry.</p>
+            
             <p>A BB+ Registry Server exposes a BB+ Provider
             Discovery endpoint at:
             <code>/.well-known/bb/providers.json</code></p>
@@ -2173,6 +2373,11 @@ http://portal.goodhealthclinic.org/token
             the PUSH methods we're trying to enable here.
           </div>
         </section>
+        
+        <section id="authors">
+        <div class="well">Preliminary protocol specification authored by Josh Mandel, Justin Richer, Keith Boone, and Adam Goldstein for the Blue Button+ Working Group.</class>
+        </section>
+        
       </div>
     </div>
   </div><!-- Footer
