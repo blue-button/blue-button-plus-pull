@@ -65,6 +65,11 @@ data-twttr-rendered="true">
           </li>
 
           <li class="sidenav-indent">
+            <a href="#client-types"><i class=
+            "icon-chevron-right"></i> Client Types</a>
+          </li>
+
+          <li class="sidenav-indent">
             <a href="#registration-open"><i class=
             "icon-chevron-right"></i> Open Registration</a>
           </li>
@@ -72,6 +77,38 @@ data-twttr-rendered="true">
           <li class="sidenav-indent">
             <a href="#registration-trusted"><i class=
             "icon-chevron-right"></i> Trusted Registration</a>
+          </li>
+
+          <li>
+            <a href="#discovery"><i class="icon-chevron-right"></i>
+            Endpoint Discovery <span class=
+            "label section label-success">Common</span></a>
+          </li>
+
+          <li class="sidenav-indent">
+            <a href="#discovery-registry"><i class=
+            "icon-chevron-right"></i> BB+ Registries</a>
+          </li>
+
+          <li class="sidenav-indent">
+            <a href="#discovery-providers"><i class=
+            "icon-chevron-right"></i>Registered Providers</a>
+          </li>
+
+          <li class="sidenav-indent">
+            <a href="#discovery-single-provider"><i class=
+            "icon-chevron-right"></i>Single Provider</a>
+          </li>
+
+         <li class="sidenav-indent">
+            <a href="#discovery-apps"><i class=
+            "icon-chevron-right"></i>Registered Apps</a>
+          </li>
+          
+          <li>
+            <a href="#scopes"><i class=
+            "icon-chevron-right"></i> Standard Scopes
+            <span class="label section label-success">Common</span></a>
           </li>
 
           <li>
@@ -113,35 +150,17 @@ data-twttr-rendered="true">
           </li>
 
           <li>
-            <a href="#discovery"><i class="icon-chevron-right"></i>
-            Endpoint Discovery <span class=
-            "label section label-success">Common</span></a>
-          </li>
-
-          <li class="sidenav-indent">
-            <a href="#discovery-registry"><i class=
-            "icon-chevron-right"></i> BB+ Registries</a>
-          </li>
-
-          <li class="sidenav-indent">
-            <a href="#discovery-providers"><i class=
-            "icon-chevron-right"></i>Registered Providers</a>
-          </li>
-
-         <li class="sidenav-indent">
-            <a href="#discovery-apps"><i class=
-            "icon-chevron-right"></i>Registered Apps</a>
-          </li>
-          <li class="sidenav-indent">
-            <a href="#discovery-single-provider">Single Provider</a>
-          </li>
-          <li>
             <a href="#push-authorization"><i class=
             "icon-chevron-right"></i> Push Authorization
             <span class=
             "label section label-warning">Push</span></a>
           </li>
-        </ul>
+
+          <li>
+            <a href="#authors"><i class=
+            "icon-chevron-right"></i> Authors</a>
+          </li>
+	</ul>
       </div>
 
       <div class="span7">
@@ -167,7 +186,7 @@ data-twttr-rendered="true">
           <div class="page-header">
             <h1>App Registration <small>up-front,
             partially-automated</small> <span class=
-            "label label-success">Common</span></h1>
+            "label label-success">Common</span></h1></div>
 
             <p>Before an app connects to a BlueButton+ provider, it
             registers with that provider as an OAuth2 Client. The
@@ -215,7 +234,7 @@ data-twttr-rendered="true">
             
             <p>When deciding whether and how to register with a Registry Service, a client application developer MUST determine which of the above categories are appropriate for their application. Application developers must take care to select the appropriate category for their application based on its runtime capabilites as well as policies around the data. A Registry should help enable these distinctions by explicitly asking application develoeprs about the capabilities of their applications in order to determine which policies to apply.</p>
             
-            <h3><span class="badge-head badge">A1</span> Trusted Confidential Application</h3>
+            <h3><span class="badge">A1</span> Trusted Confidential Application</h3>
             
             Examples:
             <ul>
@@ -230,7 +249,7 @@ data-twttr-rendered="true">
             <li>If the <code>registration_jwt</code> or <code>client_secret</code> are exposed, it should be considered a major security breach and system-wide invalidation of the application's instances (and re-provisioning of its <code>registration_jwt</code>) are reasonable and expected countermeasures.</li>
             </ul>
             
-	    <h3><span class="badge-head badge">B1</span> Trusted Public Application</h3>
+	    <h3><span class="badge">B1</span> Trusted Public Application</h3>
 	    
 	    Examples:
 	    <ul>
@@ -245,7 +264,7 @@ data-twttr-rendered="true">
 	    <li>If the <code>registration_jwt</code> is exposed, it should be considered a major security breach and system-wide invalidation of the application's instances (and re-provisioning of its <code>registration_jwt</code>) are reasonable and expected countermeasures.</li>
 	    </ul>
 	    
-	    <h3><span class="badge-head badge">A2</span> Semi-Trusted Confidential Application</h3>
+	    <h3><span class="badge">A2</span> Semi-Trusted Confidential Application</h3>
 	    Examples:
 	    <ul>
 	    <li>Self-sufficient native applications that register themselves separately per installation instance based on their pre-registered parameters.</li>
@@ -260,7 +279,7 @@ data-twttr-rendered="true">
 	    <li>An application SHOULD pre-register as many parameters as possible at the Registry Service and the authorization server MUST enforce them.</li>
 	    </ul>
 
-	    <h3><span class="badge-head badge">B2</span> Semi-Trusted Public Application</h3>
+	    <h3><span class="badge">B2</span> Semi-Trusted Public Application</h3>
 	    Examples:
 	    <ul>
 	    <li>In-browser javascript applications that handle dynamic registration and authorization (using the implicit flow) on their own</li>
@@ -275,7 +294,7 @@ data-twttr-rendered="true">
 	    <li>This is likely to be a rare case in BB+.</li>
 	    </ul>
 
-	    <h3><span class="badge-head badge">A3</span> Experimental Confidential Application</h3>
+	    <h3><span class="badge">A3</span> Experimental Confidential Application</h3>
 	    Examples:
 	    <ul>
 	    <li>Weekend project / prototype of a web or native client to be used by app developers, their friends, and family</li>
@@ -288,7 +307,7 @@ data-twttr-rendered="true">
 	    <li>An authorization server MAY display statistics such as how many other users have authorized this application in order to help the user make their decision.</li>
 	    </ul>
 	    
-	    <h3><span class="badge-head badge">B3</span> Experimental Public Application</h3>
+	    <h3><span class="badge">B3</span> Experimental Public Application</h3>
 	    Examples:
 	    <ul>
 	    <li>Weekend project / prototype of an in-browser or native client to be used by app developers, their friends, and family</li>
@@ -528,7 +547,7 @@ Host: bbplus-provider.org
 
             <p>The client will receive a unique
             <code>client_id</code> for that service provider, 
-            a <client_secret> that it can use to authorize at
+            a <code>client_secret</code> that it can use to authorize at
             the token endpoint, as well as a
             <code>registration_access_token</code> that it can use
             to maintain its registration at the registration endpoint, as described in
@@ -637,10 +656,6 @@ BB+ Registry->Provider: Pre-registered app claims
 Provider->Provider: Verify reg matches claims
 Provider->App: client_id, secret, registration token
 </pre></div>
-
-                
-            <pre class="diagram">
-</pre>
 
             <ol>
               <li>Client Class is manually pre-registered with a
@@ -799,7 +814,7 @@ Host: bbplus-provider.org
             JWT. Using that key, the provider can then validate the signature
             of the JWT as described in JSON Web Signatures.</p>
             
-            <p class="alert-info">It's recommended <em>(required?)</em> that
+            <p class="alert alert-info">It's recommended <em>(required?)</em> that
             BB+ Registries publish a <a href=
             "http://tools.ietf.org/html/draft-richer-oauth-introspection">
             token introspection endpoint</a> to facilitate token
@@ -885,14 +900,510 @@ Host: bbplus-provider.org
                 concerned.</li>
               </ul>
             </div>
-          </div>
         </section>
 
+        <section id="discovery">
+          <div class="page-header">
+            <h1>Provider and App Discovery <small>via BB+ Registries</small>
+            <span class=
+            "label label-success">Common</span></h1></div>
+
+            <p>BlueButton+ Pull uses <strong>BB+ Registry
+            Servers</strong> to enable discovery of BB+ Providers
+            and BB+ Apps. Each BB+ Registry Server exposes a set of
+            trusted providers and a set of trusted apps at
+            well-known <code>https</code> URLs, using simple
+            <a href="http://json-ld.org/">JSON-LD</a> arrays. In
+            the BB+ ecosystem, apps and providers must be
+            pre-configured with a BB+ Registry Server (or Servers).
+            All discovery endpoints are organized beneath
+            <code>.well-known/bb/</code> at the server's root.</p>
+
+            <h5>Why JSON-LD?</h5>
+
+            <div class="well alert-info">
+              <p><strong>JSON-LD</strong> provides a nice balance
+              between idiomatic JSON and well-structured data
+              representations. By combining a JSON payload with a
+              JSON-LD context, properties can be expanded to full
+              URIs so that data can be mixed and matched with other
+              services. For example, the BB+ Provider element below
+              can automatically be:</p>
+
+              <ul>
+                <li>
+                  <a href="http://tinyurl.com/bpz5xsx" target=
+                  "_blank">Expanded to full property URIs</a>
+                </li>
+
+                <li>
+                  <a href="http://tinyurl.com/cp9vmum" target=
+                  "_blank">Normalized in RDF</a>
+                </li>
+              </ul>
+            </div>
+
+            <h2 id="discovery-registry">BB+ Registry 
+            Discovery</h2>
+
+            <p>A BB+ Registry Server exposes a BB+ Registry
+            discovery endpoint at:
+            <code>/.well-known/bb/registry.json</code></p>
+
+            <h3>registry.json</h3>
+
+            <p><code>registry.json</code> is a single
+            Registry element expressed as JSON-LD with a default
+            <code>@vocab</code> from <a href=
+            "http://schema.org">http://schema.org</a> and
+            additional properties defined in the <a href=
+            "context-json-ld.js">BB+ JSON-LD Context</a></p>
+
+            <p>While any vocabulary from schema.org may be used in
+            describing a BB+ Registry, the <strong>following fields
+            are required:</strong></p>
+
+            <table class="table table-striped">
+              <tr>
+                <th>Property</th>
+                <th>Description</th>
+              </tr>
+
+              <tr>
+                <td><code>name</code></td>
+                <td>Human-readable Name of the BB+ Registry</td>
+              </tr>
+
+              <tr>
+                <td><code>url</code></td>
+                <td>Root URL of the BB+ Registry (to which <code>.well-known/bb/registry.json</code> can be appended)</td>
+              </tr>
+
+              <tr>
+                <td><code>jwks_uri</code></td>
+                <td>URL of the JSON Web Key (JWK) set for this BB+ Registry. This URL MUST be protected by HTTPS or equivalent.</td>
+              </tr>
+
+              <tr>
+                <td><code>trust_bundle_uri</code></td>
+
+                <td>URL of the BB+ Push Trust Bundle (<code>.p7b</code>, <code>.p7c</code>, or <code>.p7m</code> file).
+                    Only used for BB+ Registries that also act as BB+ Push Trust Bundles.
+                </td>
+              </tr>
+
+              <tr>
+                <td><code>oauth2</code></td>
+
+                <td>Collection of OAuth2 endpoints</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty">
+                <code>introspect</code></td>
+
+                <td>
+                  RECOMMENDED OAuth2 introspection endpoint (As
+                  described in <a href=
+                  "http://tools.ietf.org/html/draft-richer-oauth-introspection">
+                  this draft</a>)
+                </td>
+              </tr>
+            </table>
+
+            <h5>registry.json example</h5>
+            <pre class="prettyprint">
+Content-Type: application/json
+Link: &lt;http://jmandel.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+
+{
+  "name": "The BB+ Registry Foundation",
+  "url": "http://registry.org/",
+  "jwks_uri": "https://registry.org/public_key.jwks",
+  "oauth2": {
+    "introspect": "https://registry.org/oauth/introspect",
+  }
+
+}
+            
+</pre>
+
+            <h2 id="discovery-providers">Registered Providers</h2>
+
+            <p>A BB+ <strong>Provider</strong> is defined as the unique combination of a data service provider (a service that serves the BB+ data API) and an authorization provider (an OAuth2 authorization server and related components). Therefore, if a given data provider allows for two different authorization services, there will be two different BB+ Providers listed at the Registry Server. Likewise, if an authorization server is used for two different data providers, it will be listed separately in two different BB+ Providers at the Registry.</p>
+            
+            <p>A BB+ Registry Server exposes a BB+ Provider
+            Discovery endpoint at:
+            <code>/.well-known/bb/providers.json</code></p>
+
+            <h3>providers.json</h3>
+
+            <p><code>providers.json</code> is a JSON array of
+            Provider elements, expressed as JSON-LD with a default
+            <code>@vocab</code> from <a href=
+            "http://schema.org">http://schema.org</a> and
+            additional properties defined in the <a href=
+            "context-json-ld.js">BB+ JSON-LD Context</a></p>
+
+            <p>While any vocabulary from schema.org may be used in
+            describing a provider, the <strong>following fields are
+            required:</strong></p>
+
+            <table class="table table-striped">
+              <tr>
+                <th>Property</th>
+
+                <th>Description</th>
+              </tr>
+
+              <tr>
+                <td><code>name</code></td>
+                <td>Name of the BB+ Provider organization</td>
+              </tr>
+
+              <tr>
+                <td><code>url</code></td>
+                <td>Base URL of the provider's BB+ server (to which <code>.well-known/bb/provider.json</code> can be appended)</td>
+              </tr>
+            </table>
+
+            <h5>providers.json example</h5>
+            <pre class="prettyprint">
+Content-Type: application/json
+Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+
+[
+{
+  "name": "Good Health Clinic",
+  "description": "Serving your health needs since 1999",
+  "url": "http://api.goodhealthclinic.org",
+  "location": {
+    "geo": {                       
+      "latitude": 42.3591,            # just making the point that we can
+      "longitude": -71.0934           # use arbitrary schema.org properties
+    }
+  }
+},
+{
+ ... (more providers here) ...
+}
+] 
+</pre>
+
+
+            <h2 id="discovery-single-provider">Single Provider</h2>
+
+            <p>Each BB+ Provider hosts its own 
+            Discovery endpoint at:
+            <code>/.well-known/bb/provider.json</code></p>
+
+            <h3>provider.json</h3>
+
+            <p><code>provider.json</code> is a single JSON object
+            expressing Authorization and BB+ Endpoint URLs,
+            expressed as JSON-LD with a default
+            <code>@vocab</code> from <a href=
+            "http://schema.org">http://schema.org</a> and
+            additional properties defined in the <a href=
+            "context-json-ld.js">BB+ JSON-LD Context</a></p>
+
+            <p>While any vocabulary from schema.org may be used in
+            describing a provider, the <strong>following fields are
+            required:</strong></p>
+
+            <table class="table table-striped">
+              <tr>
+                <th>Property</th>
+
+                <th>Description</th>
+              </tr>
+
+              <tr>
+                <td><code>name</code></td>
+
+                <td>Name of the BB+ Data Provider organization</td>
+              </tr>
+
+              <tr>
+                <td><code>url</code></td>
+
+                <td>Primary url of the provider organization</td>
+              </tr>
+
+              <tr>
+                <td><code>patient_signin</code></td>
+
+                <td>URL where a patient can sign in to the
+                Provider</td>
+              </tr>
+
+              <tr>
+                <td><code>oauth2</code></td>
+
+                <td>Collection of OAuth2 endpoints</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty"><code>authorize</code></td>
+
+                <td>OAuth2 authorization endpoint</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty"><code>token</code></td>
+
+                <td>OAuth2 token endpoint</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty">
+                <code>introspect</code></td>
+
+                <td>
+                  OAuth2 introspection endpoint (As described in
+                  <a href=
+                  "http://tools.ietf.org/html/draft-richer-oauth-introspection">
+                  this draft</a>)
+                </td>
+              </tr>
+
+              <tr>
+                <td><code>bb_api</code></td>
+
+                <td>Collection of BB+ API endpoints</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty"><code>summary</code></td>
+
+                <td>BlueButton+ Clinical Summary endpoint</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty"><code>search</code></td>
+
+                <td>BlueButton+ Document Search endpoint</td>
+              </tr>
+            </table>
+
+            <h5>provider.json example</h5>
+            <pre class="prettyprint">
+Content-Type: application/json
+Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+
+{
+  "name": "Good Health Clinic",
+  "description": "Serving your health needs since 1999",
+  "url": "http://goodhealthclinic.org",
+  "patient_signin": "http://portal.goodhealthclinic.org",
+  "location": {
+    "geo": {                       
+      "latitude": 42.3591,            # just making the point that we can
+      "longitude": -71.0934           # use arbitrary schema.org properties
+    }
+  },
+  "oauth2": {
+    "authorize_uri": "http://portal.goodhealthclinic.org/authorize",
+    "token_uri": "http://portal.goodhealthclinic.org/token"
+  },
+  "bb_api":{
+    "summary": "http://api.goodhealthclinic.org/patient/documents/summary",
+    "search": "http://api.goodhealthclinic.org/patient/documents/search"
+  }
+}
+</pre>
+
+          
+          <h2 id="discovery-apps">Registered Apps</h2>
+
+            <p>A BB+ Registry Server exposes a <strong>BB+ App
+            Discovery</strong> endpoint at:
+            <code>/.well-known/bb/apps.json</code></p>
+
+            <h3>apps.json</h3>
+
+            <p><code>apps.json</code> is a JSON array of App
+            elements, expressed as JSON-LD with a default
+            <code>@vocab</code> from <a href=
+            "http://schema.org">http://schema.org</a> and
+            additional properties defined in the <a href=
+            "context-json-ld.js">BB+ JSON-LD Context</a></p>
+
+            <p>While any vocabulary from schema.org may be used in
+            describing a provider, the <strong>following fields are
+            required:</strong></p>
+
+            <table class="table table-striped">
+              <tr>
+                <th>Property</th>
+
+                <th>Description</th>
+              </tr>
+
+              <tr>
+                <td><code>name</code></td>
+
+                <td>Name of the BB+ App</td>
+              </tr>
+
+              <tr>
+                <td><code>url</code></td>
+
+                <td>Primary url of the BB+ App</td>
+              </tr>
+
+              <tr>
+                <td><code>fixed_registration_parameters</code></td>
+
+                <td>
+                  JSON structure containing any <a href=
+                  "#registration-parameters">registration
+                  parameters</a> that are fixed across all
+                  instances of this app. A Trusted Registration
+                  request that fails to match (NOTE: need matching
+                  mechanisms defined here) on any parameters
+                  included here will be rejected. This may contain
+                  any valid client metadata reistration parameters,
+                  and it is RECOMMENDED that the following ones be
+                  particularly locked down.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="subproperty">
+                <code>client_name</code></td>
+
+                <td>client_name must be fixed across all app
+                instances and must match the schema.org name
+                above</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty">
+                <code>client_uri</code></td>
+
+                <td>client_uri must be fixed across all app
+                instances and must match the schema.org url
+                above</td>
+              </tr>
+
+              <tr>
+                <td class="subproperty">
+                <code>redirect_uris</code></td>
+
+                <td>the set of allowable redirect_uris must be
+                fixed across all app instances</td>
+              </tr>
+            </table>
+
+            <h5>apps.json example</h5>
+            <pre class="prettyprint">
+Content-Type: application/json
+Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
+
+[
+{
+  "url": "https://bpgrapher.org",
+  "name": "Blood Pressure Grapher",
+  "fixed_registration_parameters": {
+      "client_name": "Blood Pressure Grapher",
+      "client_uri": "https://bpgrapher.org",
+      "logo_uri": "http://bpgrapher.org/images/logo.png",
+      "contacts": [
+        "plot-master@bpgrapher.org"
+      ],
+      "tos_uri": "https://bpgrapher.org/tos",
+      "redirect_uris": [
+        "https://bpgrapher.org/after-auth"
+      ],
+      "response_types": ["token"],
+      "grant_types": ["implicit"],
+      "token_endpoint_auth_method": "none",
+      "scope":  "single-patient http://siframework.org/ABBI/endpoint/summary"
+  },
+},
+{
+ ... (more apps here) ...
+}
+] 
+</pre>
+        </section>
+
+	<section id="scopes">
+	  <div class="page-header">
+	    <h1>Standard Scopes <small>structured values for conveying authorization information</small> <span class="label label-success">Common</span></h1></div>
+	   
+	   <p>In APIs protected by OAuth 2, the <code>scope</code> mechanism allows the Authorization Server, Client, and Protected Resource to communicate the level of access that the client has been authorized for. These scopes are expressed at different times throughout the process:</p>
+	   
+	   <ol>
+	    <li>At pre-registration with a Registry, an application class may pre-register the set of scopes that its instances will be able to ask for in future steps</li>
+	    <li>At registration, a client instance may ask for a set of scopes to be tied to its registration</li>
+	    <li>At registration, an authorization server will register a client instance with a set of scopes that the client instance may ask for at the authorization endpoint</li>
+	    <li>At authorization, a client may ask for a set of scopes to be tied to the issued token</li>
+	    <li>At authorization, an end-user and authorization server will determine which scopes are associated with the issued token</li>
+	    <li>At token issuance, a token is associated with a set of authorized scopes expressed in the return from the token endpoint</li>
+	    <li>At access time, the protected resource compares the scopes associated with the token to the scopes required to access the data API in question</li>
+	   </ol>
+	   
+	   <p>The <code>scope</code> paramter in OAuth 2 is a space-separated list of strings, and the values, syntax, and sematnics of the individual scopes are service specific. In the context of Blue Button+, there are several scopes that are defined by the BB+ Push and Pull protocols. These scopes fall into two main categories: simple scopes  and structured scopes. </p>
+	   
+	   <h2>Simple Scopes</h2>
+	   
+	   <p>Simple scopes are plain, static string values (that do not include the space " " character). For these scopes, the entire string is used as-is in all steps listed above. These scopes are to be compared using exact string matching when determining</p>
+	   
+	   <table class="table table-striped table-hover">
+	    <thead>
+	      <tr>
+		<th>Scope Value</th>
+		<th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td><code>http://siframework.org/ABBI/endpoint/search</code>
+		<td>Access to the BB+ Search API</td>
+	      </tr>
+	      <tr>
+		<td><code>http://siframework.org/ABBI/endpoint/summary</code>
+		<td>Access to the BB+ Summary API</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	   
+	   </table>
+	   
+	   <h2>Structured Scopes</h2>
+	   
+	   <p>In BB+, structured scopes have two parts, a root scope value and an optional parameter value, separated by the colon ":" character. In general, the root scope value is used in the pre-registration and registration steps above (steps 1-3), and the full scope value (root:parameter) are used in the authorization, token, and access steps above (4-7), though the root used without its parameter MAY have special meaning in these later steps. Registration for the root scope value implies permission for the client instance to ask for authorization for any fully parameterized scope based on that root. (Note that as with all OAuth 2 scopes, the permission to ask for authorization in no way guarantees or implies that authorization will be granted.)</p>
+	   
+	   <table class="table table-striped table-hover">
+	    <thead>
+	      <tr>
+		<th>Root Value</th>
+		<th>Parameter</th>
+		<th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td><code>single-patient</code></td>
+		<td><code>patient record pseudonymous identifier</code></td>
+		<td>In the Pull protocol, this scope represents read/write access to the records for a single patient, identified by the parameter value, such as <code>single-patient:12413</code>. An authorization server need not understand the value of the parameter in order to let the user grant access, but the resource server MUST understand and enforce the value. Access to multiple different patient records is represented by multiple scopes, such as <code>single-patient:12413 single-patient:143132</code>. In step 5, the authorization server MAY prompt the user to authorize a set of parameterized scopes based on this scope by prompting the end-user to enter a code directly or picking from a list. How these parameter values are communicated between the protected resource, client, end-user, and authorization server are out of scope for this proposal and often out of band, such as the user being given a short code and being asked to type it in. When used in steps 5-7 without a paramter value as <code>single-patient</code>, this scope stands in for the record representing the end-user who authorized the token. </td>
+	      </tr>
+	      <tr>
+		<td><code>send-email-to</code></td>
+		<td><code>DIRECT email address</code></td>
+		<td>In the Push authorization protocol, this scope represents end-user authorization for the provider to send email to the DIRECT email address stated in the parameter value, such as <code>send-email-to:oip8erjoiaewjoi@direct.bp-grapher.org</code>. When used without a parameter in step 4, the authorization server MUST prompt the end user for the DIRECT email address to use. In steps 5-7, the semantics of this scope without the parameter value are undefined and out of scope for this protocol.</td>
+	    </tbody>
+	  </table>
+	
+	</section>
+        
         <section id="authorization">
           <div class="page-header">
             <h1>App Authorization <small>a runtime, patient-driven
             step</small> <span class=
-            "label label-info">Pull</span></h1>
+            "label label-info">Pull</span></h1></div>
 
             <p>BlueButton+ providers allow apps to obtain patient
             authorization to health data using standard OAuth2
@@ -1299,14 +1810,13 @@ state=98wrghuwuogerg97
 
 Host: bbplus-provider.org 
 </pre>
-          </div>
         </section>
 
         <section id="clinical-api">
           <div class="page-header">
 
             <h1>Clinical API<small>summary & search</small> <span class=
-            "label label-info">Pull</span></h1>
+            "label label-info">Pull</span></h1></div>
 
             <h2>Using the BB+ Clinical API</h2>
             To access BlueButton+ Clinical API endpoints, an app:
@@ -1354,7 +1864,7 @@ Host: bbplus-provider.org
             <table class="table table-striped">
 
               <tr>
-                <th><nobr>Accept header</th>
+                <th>Accept header</th>
                 <th>description</th>
               </tr>
 
@@ -1403,7 +1913,7 @@ Host: bbplus-provider.org
             
             <p>
             The following five fields of a <code>DocumentReference</code> must be defined to support
-            BB+ Document Search:
+            BB+ Document Search:</p>
 
             <ul>
               <li> <code>url</code> to support <a href="#clinical-document-retrieval">Document Retrieval</a></li>
@@ -1412,8 +1922,6 @@ Host: bbplus-provider.org
               <li> <code>type</code> to describe clinical content</li>
               <li> <code>context.period</code> to describe period of care</li>
             </ul>
-            
-            </p>
             
             <p>For full details, see <a
             href="http://www.hl7.org/implement/standards/fhir/documentreference.htm">FHIR's
@@ -1695,439 +2203,12 @@ Authorization: i8hweunweunweofiwweoijewiwe
 Host: bbplus-provider.org
 </pre>
  
-        </div>
       </section>
-
-        <section id="discovery">
-          <div class="page-header">
-            <h1>Provider and App Discovery <small>via BB+ Registries</small>
-            <span class=
-            "label label-success">Common</span></h1>
-
-            <p>BlueButton+ Pull uses <strong>BB+ Registry
-            Servers</strong> to enable discovery of BB+ Providers
-            and BB+ Apps. Each BB+ Registry Server exposes a set of
-            trusted providers and a set of trusted apps at
-            well-known <code>https</code> URLs, using simple
-            <a href="http://json-ld.org/">JSON-LD</a> arrays. In
-            the BB+ ecosystem, apps and providers must be
-            pre-configured with a BB+ Registry Server (or Servers).
-            All discovery endpoints are organized beneath
-            <code>.well-known/bb/</code> at the server's root.</p>
-
-            <h5>Why JSON-LD?</h5>
-
-            <div class="well alert-info">
-              <p><strong>JSON-LD</strong> provides a nice balance
-              between idiomatic JSON and well-structured data
-              representations. By combining a JSON payload with a
-              JSON-LD context, properties can be expanded to full
-              URIs so that data can be mixed and matched with other
-              services. For example, the BB+ Provider element below
-              can automatically be:</p>
-
-              <ul>
-                <li>
-                  <a href="http://tinyurl.com/bpz5xsx" target=
-                  "_blank">Expanded to full property URIs</a>
-                </li>
-
-                <li>
-                  <a href="http://tinyurl.com/cp9vmum" target=
-                  "_blank">Normalized in RDF</a>
-                </li>
-              </ul>
-            </div>
-
-            <h2 id="discovery-registry">BB+ Registry 
-            Discovery</h2>
-
-            <p>A BB+ Registry Server exposes a BB+ Registry
-            discovery endpoint at:
-            <code>/.well-known/bb/registry.json</code></p>
-
-            <h3>registry.json</h3>
-
-            <p><code>registry.json</code> is a single
-            Registry element expressed as JSON-LD with a default
-            <code>@vocab</code> from <a href=
-            "http://schema.org">http://schema.org</a> and
-            additional properties defined in the <a href=
-            "context-json-ld.js">BB+ JSON-LD Context</a></p>
-
-            <p>While any vocabulary from schema.org may be used in
-            describing a BB+ Registry, the <strong>following fields
-            are required:</strong></p>
-
-            <table class="table table-striped">
-              <tr>
-                <th>Property</th>
-                <th>Description</th>
-              </tr>
-
-              <tr>
-                <td><code>name</code></td>
-                <td>Human-readable Name of the BB+ Registry</td>
-              </tr>
-
-              <tr>
-                <td><code>url</code></td>
-                <td>Root URL of the BB+ Registry (to which <code>.well-known/bb/registry.json</code> can be appended)</td>
-              </tr>
-
-              <tr>
-                <td><code>jwks_uri</code></td>
-                <td>URL of the JSON Web Key (JWK) set for this BB+ Registry. This URL MUST be protected by HTTPS or equivalent.</td>
-              </tr>
-
-              <tr>
-                <td><code>trust_bundle_uri</code></td>
-
-                <td>URL of the BB+ Push Trust Bundle (<code>.p7b</code>, <code>.p7c</code>, or <code>.p7m</code> file).
-                    Only used for BB+ Registries that also act as BB+ Push Trust Bundles.
-                </td>
-              </tr>
-
-              <tr>
-                <td><code>oauth2</code></td>
-
-                <td>Collection of OAuth2 endpoints</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty">
-                <code>introspect</code></td>
-
-                <td>
-                  RECOMMENDED OAuth2 introspection endpoint (As
-                  described in <a href=
-                  "http://tools.ietf.org/html/draft-richer-oauth-introspection">
-                  this draft</a>)
-                </td>
-              </tr>
-            </table>
-
-            <h5>registry.json example</h5>
-            <pre class="prettyprint">
-Content-Type: application/json
-Link: &lt;http://jmandel.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
-
-{
-  "name": "The BB+ Registry Foundation",
-  "url": "http://registry.org/",
-  "jwks_uri": "https://registry.org/public_key.jwks",
-  "oauth2": {
-    "introspect": "https://registry.org/oauth/introspect",
-  }
-
-}
-            
-</pre>
-
-            <h2 id="discovery-providers">Registered Providers</h2>
-
-            <p>A BB+ <strong>Provider</strong> is defined as the unique combination of a data service provider (a service that serves the BB+ data API) and an authorization provider (an OAuth2 authorization server and related components). Therefore, if a given data provider allows for two different authorization services, there will be two different BB+ Providers listed at the Registry Server. Likewise, if an authorization server is used for two different data providers, it will be listed separately in two different BB+ Providers at the Registry.</p>
-            
-            <p>A BB+ Registry Server exposes a BB+ Provider
-            Discovery endpoint at:
-            <code>/.well-known/bb/providers.json</code></p>
-
-            <h3>providers.json</h3>
-
-            <p><code>providers.json</code> is a JSON array of
-            Provider elements, expressed as JSON-LD with a default
-            <code>@vocab</code> from <a href=
-            "http://schema.org">http://schema.org</a> and
-            additional properties defined in the <a href=
-            "context-json-ld.js">BB+ JSON-LD Context</a></p>
-
-            <p>While any vocabulary from schema.org may be used in
-            describing a provider, the <strong>following fields are
-            required:</strong></p>
-
-            <table class="table table-striped">
-              <tr>
-                <th>Property</th>
-
-                <th>Description</th>
-              </tr>
-
-              <tr>
-                <td><code>name</code></td>
-                <td>Name of the BB+ Provider organization</td>
-              </tr>
-
-              <tr>
-                <td><code>url</code></td>
-                <td>Base URL of the provider's BB+ server (to which <code>.well-known/bb/provider.json</code> can be appended)</td>
-              </tr>
-            </table>
-
-            <h5>providers.json example</h5>
-            <pre class="prettyprint">
-Content-Type: application/json
-Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
-
-[
-{
-  "name": "Good Health Clinic",
-  "description": "Serving your health needs since 1999",
-  "url": "http://api.goodhealthclinic.org",
-  "location": {
-    "geo": {                       
-      "latitude": 42.3591,            # just making the point that we can
-      "longitude": -71.0934           # use arbitrary schema.org properties
-    }
-  }
-},
-{
- ... (more providers here) ...
-}
-] 
-</pre>
-
-
-            <h2 id="discovery-apps">Registered Apps</h2>
-
-            <p>A BB+ Registry Server exposes a <strong>BB+ App
-            Discovery</strong> endpoint at:
-            <code>/.well-known/bb/apps.json</code></p>
-
-            <h3>apps.json</h3>
-
-            <p><code>apps.json</code> is a JSON array of App
-            elements, expressed as JSON-LD with a default
-            <code>@vocab</code> from <a href=
-            "http://schema.org">http://schema.org</a> and
-            additional properties defined in the <a href=
-            "context-json-ld.js">BB+ JSON-LD Context</a></p>
-
-            <p>While any vocabulary from schema.org may be used in
-            describing a provider, the <strong>following fields are
-            required:</strong></p>
-
-            <table class="table table-striped">
-              <tr>
-                <th>Property</th>
-
-                <th>Description</th>
-              </tr>
-
-              <tr>
-                <td><code>name</code></td>
-
-                <td>Name of the BB+ App</td>
-              </tr>
-
-              <tr>
-                <td><code>url</code></td>
-
-                <td>Primary url of the BB+ App</td>
-              </tr>
-
-              <tr>
-                <td><code>fixed_registration_parameters</code></td>
-
-                <td>
-                  JSON structure containing any <a href=
-                  "#registration-parameters">registration
-                  parameters</a> that are fixed across all
-                  instances of this app. A Trusted Registration
-                  request that fails to match (NOTE: need matching
-                  mechanisms defined here) on any parameters
-                  included here will be rejected. This may contain
-                  any valid client metadata reistration parameters,
-                  and it is RECOMMENDED that the following ones be
-                  particularly locked down.
-                </td>
-              </tr>
-
-              <tr>
-                <td class="subproperty">
-                <code>client_name</code></td>
-
-                <td>client_name must be fixed across all app
-                instances and must match the schema.org name
-                above</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty">
-                <code>client_uri</code></td>
-
-                <td>client_uri must be fixed across all app
-                instances and must match the schema.org url
-                above</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty">
-                <code>redirect_uris</code></td>
-
-                <td>the set of allowable redirect_uris must be
-                fixed across all app instances</td>
-              </tr>
-            </table>
-
-            <h5>apps.json example</h5>
-            <pre class="prettyprint">
-Content-Type: application/json
-Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
-
-[
-{
-  "url": "https://bpgrapher.org",
-  "name": "Blood Pressure Grapher",
-  "fixed_registration_parameters": {
-      "client_name": "Blood Pressure Grapher",
-      "client_uri": "https://bpgrapher.org",
-      "logo_uri": "http://bpgrapher.org/images/logo.png",
-      "contacts": [
-        "plot-master@bpgrapher.org"
-      ],
-      "tos_uri": "https://bpgrapher.org/tos",
-      "redirect_uris": [
-        "https://bpgrapher.org/after-auth"
-      ],
-      "response_types": ["token"],
-      "grant_types": ["implicit"],
-      "token_endpoint_auth_method": "none",
-      "scope":  "single-patient http://siframework.org/ABBI/endpoint/summary"
-  },
-},
-{
- ... (more apps here) ...
-}
-] 
-</pre>
-            <h2 id="discovery-single-provider">Single Provider</h2>
-
-            <p>Each BB+ Provider hosts its own 
-            Discovery endpoint at:
-            <code>/.well-known/bb/provider.json</code></p>
-
-            <h3>provider.json</h3>
-
-            <p><code>provider.json</code> is a single JSON object
-            expressing Authorization and BB+ Endpoint URLs,
-            expressed as JSON-LD with a default
-            <code>@vocab</code> from <a href=
-            "http://schema.org">http://schema.org</a> and
-            additional properties defined in the <a href=
-            "context-json-ld.js">BB+ JSON-LD Context</a></p>
-
-            <p>While any vocabulary from schema.org may be used in
-            describing a provider, the <strong>following fields are
-            required:</strong></p>
-
-            <table class="table table-striped">
-              <tr>
-                <th>Property</th>
-
-                <th>Description</th>
-              </tr>
-
-              <tr>
-                <td><code>name</code></td>
-
-                <td>Name of the BB+ Data Provider organization</td>
-              </tr>
-
-              <tr>
-                <td><code>url</code></td>
-
-                <td>Primary url of the provider organization</td>
-              </tr>
-
-              <tr>
-                <td><code>patient_signin</code></td>
-
-                <td>URL where a patient can sign in to the
-                Provider</td>
-              </tr>
-
-              <tr>
-                <td><code>oauth2</code></td>
-
-                <td>Collection of OAuth2 endpoints</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty"><code>authorize</code></td>
-
-                <td>OAuth2 authorization endpoint</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty"><code>token</code></td>
-
-                <td>OAuth2 token endpoint</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty">
-                <code>introspect</code></td>
-
-                <td>
-                  OAuth2 introspection endpoint (As described in
-                  <a href=
-                  "http://tools.ietf.org/html/draft-richer-oauth-introspection">
-                  this draft</a>)
-                </td>
-              </tr>
-
-              <tr>
-                <td><code>bb_api</code></td>
-
-                <td>Collection of BB+ API endpoints</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty"><code>summary</code></td>
-
-                <td>BlueButton+ Clinical Summary endpoint</td>
-              </tr>
-
-              <tr>
-                <td class="subproperty"><code>search</code></td>
-
-                <td>BlueButton+ Document Search endpoint</td>
-              </tr>
-            </table>
-
-            <h5>provider.json example</h5>
-            <pre class="prettyprint">
-Content-Type: application/json
-Link: &lt;http://blue-button.github.com/blue-button-plus-pull/context-json-ld.js&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"
-
-{
-  "name": "Good Health Clinic",
-  "description": "Serving your health needs since 1999",
-  "url": "http://goodhealthclinic.org",
-  "patient_signin": "http://portal.goodhealthclinic.org",
-  "location": {
-    "geo": {                       
-      "latitude": 42.3591,            # just making the point that we can
-      "longitude": -71.0934           # use arbitrary schema.org properties
-    }
-  },
-  "oauth2": {
-    "authorize_uri": "http://portal.goodhealthclinic.org/authorize",
-    "token_uri": "http://portal.goodhealthclinic.org/token"
-  },
-  "bb_api":{
-    "summary": "http://api.goodhealthclinic.org/patient/documents/summary",
-    "search": "http://api.goodhealthclinic.org/patient/documents/search"
-  }
-}
-</pre>
-          </div>
-        </section>
 
         <section id="push-authorization">
           <div class="page-header">
             <h1>Push Authorization <span class=
-            "label label-warning">Push</span></h1>
+            "label label-warning">Push</span></h1></div>
 
             <p>Patient data is stored with many providers, and
             manually requesting an update from each provider can be
@@ -2359,7 +2440,6 @@ http://portal.goodhealthclinic.org/token
   "scope": "send_email_to:oip8erjoiaewjoi@direct.bp-grapher.org"
 } 
 </pre>
-          </div>
 
           <div class="well alert-info">
             <h3>Alternative Push Authorization Strategy
@@ -2375,7 +2455,9 @@ http://portal.goodhealthclinic.org/token
         </section>
         
         <section id="authors">
-        <div class="well">Preliminary protocol specification authored by Josh Mandel, Justin Richer, Keith Boone, and Adam Goldstein for the Blue Button+ Working Group.</class>
+        
+        <div class="well"><h3>Authors and contributors</h3>
+        Preliminary protocol specification authored by Josh Mandel, Justin Richer, Keith Boone, and Adam Goldstein for the Blue Button+ Working Group.</div>
         </section>
         
       </div>
@@ -2385,7 +2467,7 @@ http://portal.goodhealthclinic.org/token
 
   <footer class="footer">
     <div class="container">
-      <p>Automate Blue Button Initiative 2013</p>
+      <p>Blue Button+ 2013</p>
     </div>
   </footer><!-- Le javascript
         ================================================== -->

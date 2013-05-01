@@ -1125,6 +1125,9 @@ pre {
   white-space: pre;
 }
 
-.badge-head {
+h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge, h6 .badge,
+h1 .label, h2 .label, h3 .label, h4 .label, h5 .label, h6 .label {
   vertical-align: middle;
+  font-size: 50%;
+  line-height: normal;
 }
