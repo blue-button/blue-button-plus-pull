@@ -1867,7 +1867,6 @@ Host: bbplus-provider.org
             <ul>
               <li> <code>location</code> to support <a href="#clinical-document-retrieval">Document Retrieval</a></li>
               <li> <code>format</code> to distinguish CCDA vs. CCD 1.0 vs. CCR (see below)</li>
-              <li> <code>mimeType</code> to describe MIME type </li>
               <li> <code>type</code> to describe clinical content</li>
               <li> <code>period</code> to describe period of care</li>
             </ul>
@@ -1895,21 +1894,6 @@ Host: bbplus-provider.org
                 <th>Query parameter</th>
                 <th>Description</th>
               </tr>
-
-              <tr>
-                <td><code>mimeType</code></td>
-
-                <td>
-                
-                <p>Filter the available documents by a MIME type. Most clinical documents today have MIME type <code>text/xml</code>.</p>
-                
-                To match more than one <code>mimeType</code>, separate values with <code>,</code> </p>
-                E.g. <code>mimeType=text/xml,text/plain</code>
-
-                </td>
-
-              </tr>
-
 
               <tr>
                 <td><code>format</code></td>
@@ -2038,7 +2022,6 @@ Host: bbplus-provider.org
 
           <pre>
 GET /bb/record/documentreference?                      # provider-supplied endpoint
-   mimeType=text%2Fxml&amp;                             # limit to XML files
    format=CCDA&amp;                               # limit to Consolidated CDAs
    type=Operative,Procedure&amp;                              # limit to Operative notes *or* Procedure notes
    period:before=2013-01-01T00:00Z              # limit to care episodes that
