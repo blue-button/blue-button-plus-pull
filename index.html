@@ -777,7 +777,7 @@ Provider->App: client_id, secret, registration token
 POST /register HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: ey...{JWT token omitted for brevity}...q48d
+Authorization: Bearer ey...{JWT token omitted for brevity}...q48d
 Host: bbplus-provider.org
 
 {
@@ -1557,10 +1557,18 @@ client_id=bp-grapher
 
             <h5>Example Code-for-Token Exchange Request
             (Confidential Client)</h5>
+            
+            Confidential clients authenticate using <a href="https://www.ietf.org/rfc/rfc2617.txt">HTTP Basic Auth</a>
+            to supply credentials. To create a Baisc Auth header, you concatenate your <code>client_id</code> and
+            <code>client_secret</code> with a <code>:</code> (colon character) in between, and base64-encode the result.
+            For example, your <code>client_id</code> is <code>123</code> and your <code>client_secret</code>
+            is <code>456</code>, then you would base64-encode the string <code>123:456</code> to yield 
+            <code>MTIzOjQ1Ng==</code>. This is passed to the server in an Authorization header as demonstrated below.
+            
             <pre class="prettyprint">
 POST /token HTTP/1.1
 Host: server.example.com
-Authorization: Basic {{TODO: client password auth example}}
+Authorization: Basic MTIzOjQ1Ng==
 Content-Type: application/x-www-form-urlencoded/token?
 
 grant_type=authorization_code&amp;
@@ -1848,7 +1856,7 @@ Host: bbplus-provider.org
             <pre>
 GET /bb/record/summary HTTP/1.1
 Accept: application/xml
-Authorization: i8hweunweunweofiwweoijewiwe
+Authorization: Bearer i8hweunweunweofiwweoijewiwe
 Host: bbplus-provider.org
 </pre>
 
@@ -2021,14 +2029,14 @@ Host: bbplus-provider.org
           clarity</p>
 
           <pre>
-GET /bb/record/documentreference?                      # provider-supplied endpoint
+GET /bb/record/DocumentReference?                      # provider-supplied endpoint
    format=CCDA&amp;                               # limit to Consolidated CDAs
    type=Operative,Procedure&amp;                              # limit to Operative notes *or* Procedure notes
    period:before=2013-01-01T00:00Z              # limit to care episodes that
    HTTP/1.1                                     #   (partially) occurred pre-2013
    Accept: application/json                     # return a JSON feed 
                                                 #   (rather than Atom XML)
-Authorization: i8hweunweunweofiwweoijewiwe
+Authorization: Bearer i8hweunweunweofiwweoijewiwe
 Host: bbplus-provider.org
 </pre>
           <h4 id="example-documentreference-feed">Example response</h4>
@@ -2053,7 +2061,7 @@ Host: bbplus-provider.org
   "title": "Search results for resource type DocumentReference",
   "entry": [
     {
-      "id": "https://bbplus-provider.org/bb/record/documentreference/123",
+      "id": "https://bbplus-provider.org/bb/record/DocumentReference/123",
       "updated": "2013-04-22T04:15:10Z",
       "content": {
         "resourceType": "DocumentReference",
@@ -2073,7 +2081,7 @@ Host: bbplus-provider.org
         "indexed": "2005-12-24T09:43:41+11:00",
         "status": "current",
         "mimeType": "text/xml",
-        "location": "https://bbplus-provider.org/bb/record/binary/9n9283829f"
+        "location": "https://bbplus-provider.org/bb/record/Binary/9n9283829f"
       }
     }
   ]
@@ -2097,8 +2105,8 @@ Host: bbplus-provider.org
           <h4>Example request</h4>
           For the example <a href="#example-documentreference-feed">JSON feed above</a>, an app would fetch actual document contents via:
           <pre>
-GET /bb/record/binary/9n9283829f HTTP/1.1
-Authorization: i8hweunweunweofiwweoijewiwe
+GET /bb/record/Binary/9n9283829f HTTP/1.1
+Authorization: Bearer i8hweunweunweofiwweoijewiwe
 Host: bbplus-provider.org
 </pre>
  
